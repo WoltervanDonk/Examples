@@ -24,3 +24,11 @@
 <script src="../../Includes/Lib/bootstrap/js/sb-admin.min.js"></script>
 
 <script src="../../Includes/Js/default.js"></script>
+
+<script>
+    window.setTimeout(function() {
+        $(".alert").fadeTo(500, 0).slideUp(500, function(){
+            $(this).remove();
+        });
+    }, 4000);
+</script>

@@ -8,8 +8,8 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
-            <li id="dashboard.php" class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
-                <a id="dashboard.php" class="nav-link" onclick="pageChange('dashboard')">
+            <li id="dashboard.php" class="nav-item" data-toggle="tooltip" data-placement="right" title="selectExample">
+                <a id="dashboard.php" class="nav-link" onclick="pageChange('../selectExample/selectRows')">
                     <i class="fa fa-fw fa-dashboard"></i>
                     <span class="nav-link-text">
                 Dashboard</span>

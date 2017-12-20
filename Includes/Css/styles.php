@@ -1,13 +1,4 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: remco
- * Date: 9/1/2017
- * Time: 3:12 PM
- */
 
-
-?>
 
 <!-- Bootstrap core CSS -->
 <link href="../../Includes/Lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">

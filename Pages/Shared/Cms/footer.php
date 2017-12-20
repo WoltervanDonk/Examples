@@ -28,7 +28,7 @@
     </div>
 </div>
 
-<?php include_once "../../Includes/Scripts/scripts.php"; ?>
+
 </body>
 
 </html>

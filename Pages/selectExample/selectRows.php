@@ -13,12 +13,27 @@ include_once "../Shared/Cms/header.php";
             <?php
             if(isset($_POST['submit']))
             {
-                $rows = array('userEmail', 'userPassword','userRights', 'userFName', 'userLName');
+                $rows = array('users.userEmail', 'roles.rolesName', 'test.testName');
                 $where = array(
                     array(
                         'name' => 'userEmail',
                         'symbol' => '=',
-                        'value' => "Example_Email",
+                        'value' => "test@gmail.com",
+                        'jointype' => 'INNER',
+                        'jointable' => 'roles',
+                        'joinvalue1' => 'users.userRoleId',
+                        'joinvalue2' => 'roles.rolesId',
+                        'syntax' => ''
+                    ),
+
+                    array(
+                        'name' => '',
+                        'symbol' => '',
+                        'value' => '',
+                        'jointype' => 'INNER',
+                        'jointable' => 'test',
+                        'joinvalue1' => 'users.userTestId',
+                        'joinvalue2' => 'test.testId',
                         'syntax' => ''
                     )
                 );
@@ -26,11 +41,9 @@ include_once "../Shared/Cms/header.php";
 
                 $user = (new QueryBuildingCls('users', $where, $rows))->selectRows();
                 $user = $user->fetch(PDO::FETCH_ASSOC);
-                echo "userEmail: ".$user['userEmail']. "</br>";
-                echo "userPassword: ".$user['userPassword']. "</br>";
-                echo "userRights: ".$user['userRights']. "</br>";
-                echo "userFName: ".$user['userFName']. "</br>";
-                echo "userLName: ".$user['userLName']. "</br>";
+                echo "</br>userEmail: ".$user['userEmail']. "</br>";
+                echo "userRol: ".$user['rolesName']. "</br>";
+                echo "userTest: ".$user['testName']. "</br>";
 
             }
 
@@ -59,7 +72,6 @@ include_once "../Shared/Cms/header.php";
                     echo "userLName: ".$value['userLName']. "</br>";
                 }
             }
-
             ?>
         </div>
     </div>

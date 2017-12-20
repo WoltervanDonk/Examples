@@ -83,7 +83,7 @@ class UserCls
     {
         if($userEmail || $userPassword || $userRights || $userFName || $userLName == "")
         {
-            echo "Vul alstublieft alle velden in";
+            echo (new errorCls())->bootstrapAlert('danger', 'Fout', 'Vul alstublieft alle velden in.');
             exit;
         }
         $this->setUserEmail($userEmail);

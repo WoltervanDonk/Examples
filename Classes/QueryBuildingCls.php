@@ -39,20 +39,48 @@ class QueryBuildingCls extends DBconn
             }
 
             //De query stmt wordt verlengd, met de FROM tableName WHERE
-            $query .= "FROM " . $tableName . " WHERE ";
+            $query .= "FROM ";
+             foreach ($options as $value)
+             {
+                 $query .= '(';
+             }
+
+             $query .= $tableName;
+
+            $x = 0;
+            foreach ($options as $value)
+            {
+                if($value['jointype'] != "")
+                {
+                        $query .= " " . $value['jointype'] . " JOIN " . $value['jointable'] . ' ON ' . $value['joinvalue1'] . ' = ' . $value['joinvalue2'] . ')';
+                }
+                $x++;
+            }
+
+            $query .= " WHERE ";
 
             //Voor elke option (dus bijv WHERE userName(name) =(symbol) jan-peter(value) AND(syntax) 2e rij, lees de meegestuurde array uit en voer uit
             //Let op, de 2e value['name'] is eigenlijk de value, maar ivm met bindparam gebruiken we hier gewoon de naam (regel 54 word de parameter gebind)
-            foreach ($options as $value) {
-                $query .= $value['name'] . " " . $value['symbol'] . " :" . $value['name'] . " " . $value['syntax'] . " ";
+            foreach ($options as $value)
+            {
+                if($value['name'] && $value['symbol'] && $value['value'] != "")
+                {
+                    $query .= $value['name'] . " " . $value['symbol'] . " :" . $value['name'] . " " . $value['syntax'] . " ";
+                }
             }
             //prepare querystmt
             $stmt = $this->getConn()->prepare($query);
 
             //Voor elke option bind het aan de bindparam
-            foreach ($options as $value) {
-                $stmt->bindParam(":" . $value['name'], $value['value']);
+            foreach ($options as $value)
+            {
+                if($value['name'] && $value['symbol'] && $value['value'] != "")
+                {
+                    $stmt->bindParam(":" . $value['name'], $value['value']);
+                    echo "Bindparam value :" . $value['name'] . " heeft als waarde " . $value['value']. "</br>";
+                }
             }
+            var_dump($query);
             $stmt->execute();
             //stuur de geëxecute stmt uit.
             return $stmt;

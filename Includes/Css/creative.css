@@ -71,6 +71,13 @@ img::-moz-selection {
 body {
   -webkit-tap-highlight-color: #212529; }
 
+.myAlert-top{
+  position: fixed;
+  top: 5px;
+  left:2%;
+  width: 96%;
+}
+
 #mainNav {
   border-bottom: 1px solid rgba(33, 37, 41, 0.1);
   background-color: #fff;
