@@ -8,62 +8,54 @@ class TableCls
     private $table;
 
     //Hier word de table dynamisch aangemaakt
-    public function displayTable($columns, $values = 0, $updateButtons = "", $deleteButtons = "", $pdf = "")
+    public function displayTable($columns, $values = 0, $buttons)
     {
-        $this->setTable("<table class='table table-striped table-hover'><thead class='thead-inverse'><tr>");
+        $fetchValues = $values->fetchAll();
 
-        foreach ($columns as $columnName) {
-            $this->setTable($this->getTable() . "<th>" . $columnName . "</th>");
-        }
-        if ($updateButtons != "") {
-            $this->setTable($this->getTable() . "<th>Aanpassen</th>");
-        }
-        if ($deleteButtons != "") {
-            $this->setTable($this->getTable() . "<th>Verwijderen</th>");
-        }
-        if ($pdf != "") {
-            $this->setTable($this->getTable() . "<th>PDF</th>");
-        }
-        $this->setTable($this->getTable() . "</tr></thead><tbody>");
+        $table = $this->getTable();
 
-        $z = 0;
+        $table .= '<table class="table">';
 
-        //De for loop regelt het maken van de tr(table row)
-        for ($x = 0; $x != sizeof($values); $x++) {
-            $this->setTable($this->getTable() . "<tr>");
+        $table .= '<thead><tr>';
+        //Vullen van table columns
+        foreach ($columns as $value)
+        {
+            $table .= '<th scope="col">'. $value. '</th>';
+        }
+        $table .= '</tr></thead><tbody>';
 
-            //Hier worden de td(table data) gemaakt.
-            //Dit word gedaan op het aantal columns die er zijn meegestuurd
-            for ($i = 0; $i != sizeof($columns); $i++) {
-                if (strpos($columns[$i], 'Naar user') !== false) { //Kijkt of de text '(links)' in de variable $colums[$i] staat.
-                    $this->setTable($this->getTable() . "<td><a href='userAdd.php?id=" . $values[$z][$i] . "'>" . $values[$z][$i] . "</td>");
-                } else if (strpos($columns[$i], 'Naar team') !== false) { //Kijkt of de text '(links)' in de variable $colums[$i] staat.
-                    $this->setTable($this->getTable() . "<td><a href='team.php?id=" . $values[$z][$i] . "'>" . $values[$z][$i] . "</td>");
-                } else {
-                    $this->setTable($this->getTable() . "<td>" . $values[$z][$i] . "</td>");
+        //Als er geen buttons worden aangevraagd pas de counter aan naar default
+        if ($buttons[0] != '')
+        {
+            $buttonsCalc = 1 + count($buttons);
+        }
+        else
+        {
+            $buttonsCalc = 1;
+        }
+
+        foreach ($fetchValues as $value)
+        {
+            //Vullen van tablerows
+            $table .= "<tr>";
+            for ($x = 0; $x <= sizeof($columns) - $buttonsCalc; $x++) {
+                $table .= '<td>' . $value[$x] . '</td>';
+            }
+            //Aanmaken van buttons (indien meegegeven
+            if ($buttons[0] != '')
+            {
+                foreach ($buttons as $button)
+                {
+                    $table .= "<td><a class='" . $button['class'] . "' data-target='".$button['data-target']."'   href=" . $button['href'] . $value[0] . ">" . $button['name'] . "</a></td>";
                 }
             }
-
-            //Hier word een link gemaakt voor het aanpassen van data.
-            //Elke link heeft een appart id
-            if ($updateButtons != "") {
-                $this->setTable($this->getTable() . "<td><a class='btn btn-danger' href=?id=" . $values[$z][0] . ">".$updateButtons."</a></td>");
-            }
-            if ($deleteButtons != "") {
-                $this->setTable($this->getTable() . "<td><a class='btn btn-danger' href=?id=" . $values[$z][0] . ">".$deleteButtons."</a></td>");
-            }
-            if ($pdf != "") {
-                $this->setTable($this->getTable() . "<td><a class='btn btn-danger' href=createPDF.php?id=" . $values[$z][0] . ">".$pdf."</a></td>");
-            }
-
-            $z++;
-
-            $this->setTable($this->getTable() . "</tr>");
+            $table .= "</tr>";
         }
 
-        $this->setTable($this->getTable() . "</tbody></table>");
+        $table .= '</tbody>';
+        $table .= '</table>';
 
-        return $this->getTable();
+        return $table;
     }
 
     public function getTable()
