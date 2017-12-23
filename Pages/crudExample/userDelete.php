@@ -9,16 +9,6 @@ include_once "../Shared/Cms/header.php";
             </button>
             <?php
             $user = new UserCls();
-            if(isset($_GET['id']))
-            {
-                echo $user->deleteUser($_GET['id']);
-            }
-
-
-            $tableColumns = array("#", "Email", "Wachtwoord" , "Rechten", "Voornaam", "Achternaam");
-            $rows = array('userId', 'userEmail', 'userPassword', 'userRights', 'userFName', 'userLName');
-            echo $user->userTable($tableColumns, $rows);
-
 
 
             ?>
