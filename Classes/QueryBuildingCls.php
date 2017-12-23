@@ -42,7 +42,10 @@ class QueryBuildingCls extends DBconn
             $query .= "FROM ";
              foreach ($options as $value)
              {
-                 $query .= '(';
+                 if($value['jointype'] != "")
+                 {
+                     $query .= '(';
+                 }
              }
 
              $query .= $tableName;
@@ -84,36 +87,6 @@ class QueryBuildingCls extends DBconn
             $stmt->execute();
             //stuur de geëxecute stmt uit.
             return $stmt;
-    }
-
-    public function selectAllRows() {
-        //Geef de getters een eigen variable voor gebruikersgemak
-        $tableName = $this->getTableName();
-        $options = $this->getOptions();
-        $x = 0;
-
-        //De query stmt
-        $query = "SELECT ";
-        //Voor elke rij (elke waarde meegegeven in de array) zet een , neer tot de laatste
-        foreach ($options as $key)
-        {
-            $x++;
-            if ($x != count($options)) {
-                $query .= $key . ",  ";
-            } else {
-                $query .= $key . " ";
-            }
-        }
-        //De query stmt wordt verlengd, met de FROM tableName
-        $query .= "FROM " . $tableName;
-
-        //Prepare de query stmt
-        $stmt = $this->getConn()->prepare($query);
-
-        //Execute query stmt
-        $stmt->execute();
-        //return fetchAll (dit is handig voor een complete tabel uitlezen)
-        return $stmt->fetchAll();
     }
 
     public function updateRows()

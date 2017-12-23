@@ -10,30 +10,68 @@ class ModalCls
 {
     private $modal;
 
-    public function createModal($title, $content = "", $buttonType = "")
+    public function createModal()
     {
-        $this->setModal($this->getModal().'<div id="modal" class="modal fade" role="dialog">
-                         <div class="modal-dialog"> ');
+        setlocale(LC_TIME, 'NL_nl');
+            foreach ($this->getModal() as $value)
+            {
+                return '<div class="modal fade" id="'.$value['id'].'">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                    <div class="modal-header">
+                                    <h5 class="modal-title">'.$value['title'].'</h5>
+                                    <span type="text">
+                                        <h8 aria-hidden="true">'.strftime('%e %B om %H:%M',time()).'</h8> 
+                                    </span>
+                                </div>
+                                <div class="modal-body">
+                                    <p>'.$value['body'].'</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">'.$value['discardButton'].'</button> 
+                                    <form method="post"><input type="submit" name="'.$value['buttonName'].'" class="btn btn-primairy">'.$value['confirmButton'].'</input></form>
+                                </div>
+                            </div>
+                        </div>
+                    </div> ';
+            }
+    }
 
-        $this->setModal($this->getModal(). '<div class="modal-content">
-                                                <div class="modal-header"> 
-                                                    <h4 class="modal-title">'.$title.'</h4>
-                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                </div>');
+    public function modal($modal)
+    {
+//if modal is confim prepare the confirm modal.
+        switch ($modal)
+        {
+            case ('confirm delete'):
+                $this->setModal(array
+                    (
+                        array(
+                            'id' => 'confirm-delete',
+                            'title' => 'Confirmation',
+                            'body' => 'Weet u zeker dat u wilt verwijderen?',
+                            'discardButton' => 'Nee',
+                            'buttonName' => 'delete',
+                            'confirmButton' => 'Ja'
+                        )
+                    )
+                );
+                break;
 
-        $this->setModal($this->getModal(). '<div class="modal-body">
-                                                '.$content.'
-                                            </div>');
+            case ('confirm logout'):
+                $this->setModal(array
+                    (
+                        array(
+                            'title' => 'Modal1',
+                            'body' => 'dit is een body test',
+                            'confirmButton' => 'ja',
+                            'discardButton' => 'nee'
+                        )
+                    )
+                );
+                break;
+        }
 
-        $this->setModal($this->getModal(). '<div class="modal-footer">
-            
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                            </div>
-                                            </div>
-                                            </div>
-                                            </div>');
-
-        return $this->getModal();
+        echo $this->createModal($this->getModal());
     }
 
     /**

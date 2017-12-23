@@ -2,95 +2,30 @@
 
 class UserCls
 {
-    private $formProperties;
     private $userEmail;
     private $userPassword;
-    private $userRights;
     private $userFName;
     private $userLName;
+    private $userRights;
 
 
 
-    public function userTable($tableColumns, $rows)
+    public function userTable($tableColumns, $rows, $where, $buttons = array(''))
     {
         $table = new TableCls();
 
-        $tableResult = $table->displayTable($tableColumns, $selector = (new QueryBuildingCls('users', $rows, 'fetchAll'))->selectAllRows(), 1, 1);
+        $tableResult = $table->displayTable($tableColumns, $selector = (new QueryBuildingCls('users', $where, $rows))->selectRows(), $buttons);
         return $tableResult;
     }
 
-    public function userForm($formtype)
+
+    public function createUser($userEmail, $userPassword ,$userFName, $userLName, $userRights)
     {
-        //if formtype is insert prepare the form.
-        switch ($formtype) {
-            case ('insert'):
-                $this->setFormPropeties(array
-                    (
-                        array
-                        (
-                            "label" => "E-mail:",
-                            "class" => "form-control",
-                            "type" => "email",
-                            "value" => "",
-                            "name" => "userEmail",
-                            "placeholder" => "E-mail"
-                        ),
-
-                        array(
-                            "label" => "Wachtwoord:",
-                            "class" => "form-control",
-                            "type" => "password",
-                            "value" => "",
-                            "name" => "userPassword",
-                            "placeholder" => "Wachtwoord"
-                        ),
-
-                        array(
-                            "label" => "Voornaam:",
-                            "class" => "form-control",
-                            "type" => "text",
-                            "value" => "",
-                            "name" => "userFName",
-                            "placeholder" => "Voornaam"
-                        ),
-
-                        array(
-                            "label" => "Achternaam:",
-                            "class" => "form-control",
-                            "type" => "text",
-                            "value" => "",
-                            "name" => "userLName",
-                            "placeholder" => "Achternaam"
-                        ),
-
-                        array(
-                            "label" => "",
-                            "class" => "",
-                            "type" => "submit",
-                            "value" => "Verstuur",
-                            "name" => "addUser",
-                            "placeholder" => ""
-                        )
-                    )
-                );
-            break;
-        }
-
-        echo (new FormCls($this->getFormProperties()))->formCreator();
-    }
-
-    public function createUser($userEmail, $userPassword, $userRights ,$userFName, $userLName)
-    {
-        if($userEmail || $userPassword || $userRights || $userFName || $userLName == "")
-        {
-            echo (new errorCls())->bootstrapAlert('danger', 'Fout', 'Vul alstublieft alle velden in.');
-            exit;
-        }
         $this->setUserEmail($userEmail);
         $this->setUserPassword($userPassword);
-        $this->setUserRights($userRights);
         $this->setUserFName($userFName);
         $this->setUserLName($userLName);
+        $this->setUserRights($userRights);
 
         //dit is de array voor alle options van de insertRows
         //dus de query wordt met deze options bijvoorbeeld
@@ -106,10 +41,6 @@ class UserCls
                 "value" => $this->getUserPassword()
             ),
             array(
-                "name" => 'userRights',
-                "value" => $this->getUserRights()
-            ),
-            array(
                 "name" => 'userFName',
                 "value" => $this->getUserFName()
             ),
@@ -117,9 +48,23 @@ class UserCls
                 "name" => 'userLName',
                 "value" => $this->getUserLName()
             ),
-        );
 
-        echo (new QueryBuildingCls('users', $options))->insertRows();
+            array(
+                "name" => 'userRoleId',
+                "value" => $this->getUserRights()
+            ),
+
+        );
+        if($this->getUserEmail() || $this->getUserPassword()  || $this->getUserFName() || $this->getUserLName() != "")
+        {
+            echo (new QueryBuildingCls('users', $options))->insertRows();
+        }
+        else
+        {
+            echo (new errorCls())->bootstrapAlert('danger', 'Fout', 'Vul alstublieft alle velden in.');
+            exit;
+        }
+
     }
 
     public function updateUser($id)
@@ -155,22 +100,6 @@ class UserCls
 
         $db = new QueryBuildingCls('users', $options);
         $db->deleteRows();
-    }
-
-    /**
-     * @param mixed $formPropeties
-     */
-    public function setFormPropeties($formProperties)
-    {
-        $this->formProperties = $formProperties;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getFormProperties()
-    {
-        return $this->formProperties;
     }
 
     /**

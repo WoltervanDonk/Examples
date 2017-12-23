@@ -6,12 +6,7 @@ class FormCls
     //properties
     private $formProperties;
 
-    //Constructor    
-    public function __construct($formProperties)
-    {
-        $this->setFormProperties($formProperties);
-    }
-     
+
     //Methods
     //door een array mee te geven met/de onderstaanden waardes maakt het een formpje aan.
     public function formCreator()
@@ -45,6 +40,66 @@ class FormCls
         $result .= "</form>";
 
         return $result;
+    }
+
+    public function userForm($formtype)
+    {
+        //if formtype is insert prepare the form.
+        switch ($formtype) {
+            case ('insert'):
+                $this->setFormProperties(array
+                    (
+                        array
+                        (
+                            "label" => "E-mail:",
+                            "class" => "form-control",
+                            "type" => "email",
+                            "value" => "",
+                            "name" => "userEmail",
+                            "placeholder" => "E-mail"
+                        ),
+
+                        array(
+                            "label" => "Wachtwoord:",
+                            "class" => "form-control",
+                            "type" => "password",
+                            "value" => "",
+                            "name" => "userPassword",
+                            "placeholder" => "Wachtwoord"
+                        ),
+
+                        array(
+                            "label" => "Voornaam:",
+                            "class" => "form-control",
+                            "type" => "text",
+                            "value" => "",
+                            "name" => "userFName",
+                            "placeholder" => "Voornaam"
+                        ),
+
+                        array(
+                            "label" => "Achternaam:",
+                            "class" => "form-control",
+                            "type" => "text",
+                            "value" => "",
+                            "name" => "userLName",
+                            "placeholder" => "Achternaam"
+                        ),
+
+                        array(
+                            "label" => "",
+                            "class" => "",
+                            "type" => "submit",
+                            "value" => "Verstuur",
+                            "name" => "addUser",
+                            "placeholder" => ""
+                        )
+                    )
+                );
+                break;
+        }
+
+        echo $this->formCreator();
     }
 
     /**
