@@ -1,12 +1,12 @@
 <?php
 include_once "../../Includes/init.php";
 include_once "../Shared/Cms/header.php";
-var_dump($_SESSION['userId']);
 ?>
     <div class="content-wrapper">
         <div class="container-fluid">
 
             <?php
+            $userCls = new UserCls();
             if(isset($_GET['deleteId']))
             {
                 ?>
@@ -23,7 +23,8 @@ var_dump($_SESSION['userId']);
 
                 if (isset($_POST['delete']))
                 {
-                    echo '<meta http-equiv="refresh" content="0; url=userDelete.php" />';
+                    $userCls->deleteUser('deleteId');
+                    echo '<meta http-equiv="refresh" content="0; url=user.php" />';
                 }
             }
 
@@ -58,17 +59,17 @@ var_dump($_SESSION['userId']);
                 array(
                     'data-target' => "#confirm-delete",
                     'class' => 'btn btn-danger',
-                    'href' => 'userDelete.php?deleteId=',
+                    'href' => 'user.php?deleteId=',
                     'name' => "Verwijderen",
                 ),
                 array(
                     'data-target' => "#confirm-update",
                     'class' => 'btn btn-info',
-                    'href' => 'userDelete.php?updateId=',
+                    'href' => 'user.php?updateId=',
                     'name' => "Aanpassen"
                 )
             );
-            $userCls = new UserCls();
+
             echo $userCls->userTable($tableColumns, $rows, $where, $buttons);
             ?>
 

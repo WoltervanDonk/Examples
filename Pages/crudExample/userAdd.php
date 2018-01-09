@@ -15,7 +15,7 @@ include_once "../Shared/Cms/header.php";
             if(isset($_POST['addUser']))
             {
                 //Draai de UserCls()->createUser met de meegegeven benamingen (zie hieronder), vanaf php v7 wordt weergegeven waarvoor elke string dient
-                echo (new UserCls())->createUser($_POST['userEmail'], $_POST['userPassword'], $_POST['userFName'], $_POST['userLName'], '1');
+                echo (new UserCls())->createUser($_POST['userEmail'], $_POST['userPassword'], $_POST['userFName'], $_POST['userLName'], 1);
             }
 
             ?>

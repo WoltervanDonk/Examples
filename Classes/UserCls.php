@@ -53,6 +53,12 @@ class UserCls
                 "value" => $this->getUserRights()
             ),
 
+            array(
+                "name" => 'userTestId',
+                "value" => 2
+            )
+
+
         );
         if($this->getUserEmail() || $this->getUserPassword()  || $this->getUserFName() || $this->getUserLName() != "")
         {
