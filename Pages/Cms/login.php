@@ -55,11 +55,13 @@ require_once "../../Includes/init.php";
 if(isset($_POST['login']))
 {
     $rows = array('users.userId ','users.userEmail', 'users.userPassword', 'users.userFName', 'users.userLName', 'users.userRoleId','roles.rolesName');
+    $rows = array('users.userEmail', 'roles.rolesName', 'test.testName');
     $where = array(
         array(
             'name' => 'userEmail',
             'symbol' => '=',
             'value' => $_POST['userEmail'],
+            'value' => "test@gmail.com",
             'jointype' => 'INNER',
             'jointable' => 'roles',
             'joinvalue1' => 'users.userRoleId',
