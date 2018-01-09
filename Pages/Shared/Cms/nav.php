@@ -8,22 +8,22 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
-            <li id="selectRows.php" class="nav-item" data-toggle="tooltip" data-placement="right" title="selectExample">
-                <a id="selectRows.php" class="nav-link" onclick="pageChange('../selectExample/selectRows')">
+            <li id="user.php" class="nav-item" data-toggle="tooltip" data-placement="right" title="user">
+                <a id="user.php" class="nav-link" onclick="pageChange('user')">
                     <i class="fa fa-fw fa-dashboard"></i>
                     <span class="nav-link-text">
-                selectRows</span>
+                user</span>
                 </a>
             </li>
             <li id="AddUser.php" class="nav-item" data-toggle="tooltip" data-placement="right" title="AddUser">
-                <a id="AddUser.php" class="nav-link" onclick="pageChange('../crudExample/userAdd')">
+                <a id="AddUser.php" class="nav-link" onclick="pageChange('/userAdd')">
                     <i class="fa fa-fw fa-car"></i>
                     <span class="nav-link-text">
                 AddUser</span>
                 </a>
             </li>
             <li id="deleteUser.php" class="nav-item" data-toggle="tooltip" data-placement="right" title="deleteUser">
-                <a id="deleteUser.php" class="nav-link" onclick="pageChange('../crudExample/userDelete')">
+                <a id="deleteUser.php" class="nav-link" onclick="pageChange('userDelete')">
                     <i class="fa fa-fw fa-user"></i>
                     <span class="nav-link-text">
                 deleteUser</span>

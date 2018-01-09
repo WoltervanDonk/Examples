@@ -29,7 +29,7 @@ class ModalCls
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">'.$value['discardButton'].'</button> 
-                                    <form method="post"><input type="submit" name="'.$value['buttonName'].'" class="btn btn-primairy">'.$value['confirmButton'].'</input></form>
+                                    <form method="post"><input type="submit" name="'.$value['buttonName'].'" value="'.$value['confirmButton'].'"  class="btn btn-primairy"></input></form>
                                 </div>
                             </div>
                         </div>

@@ -1,6 +1,7 @@
 <?php
 include_once "../../Includes/init.php";
 include_once "../Shared/Cms/header.php";
+var_dump($_SESSION['userId']);
 ?>
     <div class="content-wrapper">
         <div class="container-fluid">
@@ -26,18 +27,18 @@ include_once "../Shared/Cms/header.php";
                 }
             }
 
-            $rows = array('users.userId, users.userEmail, users.userPassword, users.userFName, users.userLName, roles.rolesName');
+            $rows = array('users.userId, users.userEmail, users.userFName, users.userLName, roles.rolesName');
             $where = array(
                 array(
-                    'name' => 'userEmail',
+                    'name' => 'userId',
                     'symbol' => '<>',
-                    'value' => $_SESSION['userEmail'],
+                    'value' => $_SESSION['userId'],
                     'jointype' => 'INNER',
                     'jointable' => 'roles',
                     'joinvalue1' => 'users.userRoleId',
                     'joinvalue2' => 'roles.rolesId',
                     'syntax' => 'AND'
-                    ),
+                ),
 
                 array(
                     'name' => 'userRoleId',
@@ -50,15 +51,21 @@ include_once "../Shared/Cms/header.php";
                     'syntax' => ''
                 )
 
-                );
+            );
 
-            $tableColumns = array("#", "Email", "Wachtwoord" , "Voornaam", "Achternaam", "Rol", "Actie");
+            $tableColumns = array("#", "Email" , "Voornaam", "Achternaam", "Rol", "Verwijderen", "Updaten");
             $buttons = array(
                 array(
                     'data-target' => "#confirm-delete",
                     'class' => 'btn btn-danger',
                     'href' => 'userDelete.php?deleteId=',
-                    'name' => "Verwijderen"
+                    'name' => "Verwijderen",
+                ),
+                array(
+                    'data-target' => "#confirm-update",
+                    'class' => 'btn btn-info',
+                    'href' => 'userDelete.php?updateId=',
+                    'name' => "Aanpassen"
                 )
             );
             $userCls = new UserCls();

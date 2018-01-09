@@ -8,27 +8,20 @@
 ?>
 
 <!-- Bootstrap core JavaScript -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="../../Includes/Lib/bootstrap/jquery/jquery.min.js"></script>
 <script src="../../Includes/Lib/bootstrap/popper/popper.min.js"></script>
 <script src="../../Includes/Lib/bootstrap/js/bootstrap.min.js"></script>
 
 <!-- Plugin JavaScript -->
 <script src="../../Includes/Lib/bootstrap/jquery-easing/jquery.easing.min.js"></script>
-<!--<script src="../../Includes/Lib/bootstrap/chart.js/Chart.min.js"></script>-->
 <script src="../../Includes/Lib/bootstrap/datatables/jquery.dataTables.js"></script>
 <script src="../../Includes/Lib/bootstrap/datatables/dataTables.bootstrap4.js"></script>
+<script src="../../Includes/Js/jquery.bracket.min.js"></script>
 
 
 <!-- Custom scripts for this template -->
-<!--<script src="../../Includes/Lib/bootstrap/js/sb-admin.min.js"></script>-->
+<script src="../../Includes/Lib/bootstrap/js/sb-admin.min.js"></script>
 
 <script src="../../Includes/Js/default.js"></script>
-
-<script>
-    window.setTimeout(function() {
-        $(".alert").fadeTo(500, 0).slideUp(500, function(){
-            $(this).remove();
-        });
-    }, 4000);
-</script>
-

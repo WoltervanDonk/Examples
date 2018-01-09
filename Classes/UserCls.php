@@ -18,7 +18,6 @@ class UserCls
         return $tableResult;
     }
 
-
     public function createUser($userEmail, $userPassword ,$userFName, $userLName, $userRights)
     {
         $this->setUserEmail($userEmail);
@@ -67,27 +66,6 @@ class UserCls
 
     }
 
-    public function updateUser($id)
-    {
-        $options = array(
-            array(
-               "name" => 'userEmail',
-               "symbol" => '=',
-               "value" => 'Example_update',
-               "syntax" => 'WHERE'
-            ),
-
-            array(
-                "name" => 'userId',
-                "symbol" => '=',
-                "value" => $id,
-                "syntax" => ''
-            )
-        );
-
-        $db = new QueryBuildingCls('users', $options);
-        $db->updateRows();
-    }
 
     public function deleteUser($id)
     {
@@ -102,6 +80,63 @@ class UserCls
         $db->deleteRows();
     }
 
+    public function uploadImage()
+    {
+        $target_dir = "../img/";
+        $fileName = $_FILES['fileToUpload']["name"];
+        $splitName = explode(".", $fileName);
+        $fileExtension = end($splitName);
+        $newFileName = $_SESSION['userId'].'.'.$fileExtension;
+        $target_file = $target_dir . $newFileName;
+        $uploadOk = 1;
+
+
+        $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+        // Check if file already exists
+        if (file_exists($target_file)) {
+            echo "Sorry, file already exists.";
+            $uploadOk = 0;
+        }
+        // Check file size
+        if ($_FILES["fileToUpload"]["size"] > 500000) {
+            echo "Sorry, your file is too large.";
+            $uploadOk = 0;
+        }
+        // Allow certain file formats
+        if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+            && $imageFileType != "gif" ) {
+            echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+            $uploadOk = 0;
+        }
+        // Check if $uploadOk is set to 0 by an error
+        if ($uploadOk == 1)
+        {
+            $options = array(
+                array(
+                    "name" => 'userProfilePhoto',
+                    "symbol" => '=',
+                    "value" => $target_file,
+                    "syntax" => 'WHERE'
+                ),
+
+                array(
+                    "name" => 'userId',
+                    "symbol" => '=',
+                    "value" => $_SESSION['userId'],
+                    "syntax" => ''
+                )
+            );
+
+            $db = new QueryBuildingCls('users', $options);
+            $db->updateRows();
+
+            if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+                echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
+            } else {
+                echo "Sorry, there was an error uploading your file.";
+            }
+        }
+    }
     /**
      * @return mixed
      */

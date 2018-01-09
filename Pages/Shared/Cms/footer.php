@@ -28,8 +28,6 @@
     </div>
 </div>
 
-
-</body>
-
-</html>
-
+<?php
+include_once "../../Includes/Scripts/scripts.php";
+?>

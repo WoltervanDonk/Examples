@@ -21,6 +21,6 @@ session_start();
 <body class="fixed-nav sticky-footer" id="page-top">
 
 <?php
-include_once "../../Includes/Scripts/scripts.php";
+
 include_once "nav.php";
 ?>

@@ -17,19 +17,22 @@ class LoginCls extends DBconn
     {
         if ($this->getStmt()->rowCount() == 1) {
             while ($row = $this->getStmt()->fetch(PDO::FETCH_NAMED)) {
+                    $_SESSION['userId'] = $row['userId'];
+                    $_SESSION['userEmail'] = $_POST['userEmail'];
                     if (password_verify($this->getPassWord(), $row['userPassword']))
                     {
-                        if ($row['userRights'] == "user") {
+                        if ($row['userRoleId'] == "2") {
+
                             $_SESSION["loggedIn"] = true;
                             $_SESSION["admin"] = false;
-                            echo '<meta http-equiv="refresh" content="0; url=../Home/myAccount.php"/>';
+                            echo '<meta http-equiv="refresh" content="0; url=myAccount.php"/>';
                         }
 
 
-                        if ($row['userRights'] == "admin") {
+                        if ($row['userRoleId'] == "1") {
                             $_SESSION["loggedIn"] = true;
                             $_SESSION["admin"] = true;
-                            echo '<meta http-equiv="refresh" content="0; url=../crudExample/userAdd.php"/>';
+                            echo '<meta http-equiv="refresh" content="0; url=user.php"/>';
 
                         }
                     }

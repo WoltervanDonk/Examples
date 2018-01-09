@@ -34,7 +34,7 @@ class FpdfClass extends FPDF
         $this->SetFillColor(36, 140, 129);
         $this->SetLineWidth(1);
         $this->Cell(105, 25, "Prijs", 'LTR', 0, 'C', true);
-        $this->Cell(105, 25, "Betaald?", 'LTR', 0, 'C', true);
+        $this->Cell(105, 25, "Betaald?", 'LTR', 1, 'C', true);
         /*$this->Cell(105, 25, "Prijs", 'LTR', 0, 'C', true);
         $this->Cell(106, 25, "Type", 'LTR', 0, 'C', true);
         $this->Cell(106, 25, "Kleur", 'LTR', 1, 'C', true);*/
@@ -45,10 +45,14 @@ class FpdfClass extends FPDF
         $fill = false;
 
         $this->Cell(105, 20, $data[0], 1, 0, 'L', $fill);
-        $this->Cell(105, 20, $data[1], 1, 0, 'L', $fill);
-        /*$this->Cell(105, 20, $data[2], 1, 0, 'L', $fill);
-        $this->Cell(106, 20, $data[3], 1, 0, 'L', $fill);
-        $this->Cell(106, 20, $data[4], 1, 1, 'L', $fill);
+        if ($data[1] == 0 ) {
+            $this->Cell(105, 20, "Onbetaald", 1, 0, 'L', $fill);
+        } else if ($data[1] == 1) {
+            $this->Cell(105, 20, "Betaald", 1, 0, 'L', $fill);
+        }
+        /*$this->Cell(105, 20, $data[1], 1, 0, 'L', $fill);
+        $this->Cell(106, 20, $data[1], 1, 0, 'L', $fill);
+        $this->Cell(106, 20, $data[1], 1, 1, 'L', $fill);
 
         $this->SetFont('Arial', 'B', 12);
         $this->SetTextColor(0);
@@ -57,7 +61,7 @@ class FpdfClass extends FPDF
 
         $this->Cell(170, 25, "Zitplaatsen in de auto", 'LTR', 0, 'C', true);
         $this->Cell(180, 25, "Begindatum reservatie", 'LTR', 0, 'C', true);
-        $this->Cell(177, 25, "Einddatum reservatie", 'LTR', 1, 'C', true);*/
+        $this->Cell(177, 25, "Einddatum reservatie", 'LTR', 1, 'C', true);
 
         $this->SetFont('Arial', '');
         $this->SetFillColor(238);
