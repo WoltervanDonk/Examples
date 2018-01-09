@@ -22,7 +22,8 @@ include_once "../Shared/Cms/header.php";
 
                 if (isset($_POST['delete']))
                 {
-
+                    echo $_GET['id'];
+                    echo '<meta http-equiv="refresh" content="0; url=userDelete.php" />';
                 }
             }
 
