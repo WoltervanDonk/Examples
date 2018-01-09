@@ -42,7 +42,7 @@ class ModalCls
 //if modal is confim prepare the confirm modal.
         switch ($modal)
         {
-            case ('confirm delete'):
+            case ('delete'):
                 $this->setModal(array
                     (
                         array(

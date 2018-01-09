@@ -6,24 +6,25 @@ include_once "../Shared/Cms/header.php";
         <div class="container-fluid">
 
             <?php
+
             $userCls = new UserCls();
             if(isset($_GET['deleteId']))
             {
                 ?>
-                <script>
-                    $(document).ready(function () {
-                        $("#confirm-delete").modal('show');
+                <script type="text/javascript">
+                    $(window).load(function(){
+                        $('#confirm-delete').modal('show');
                     });
                 </script>
 
                 <?php
 
+                echo (new ModalCls())->modal('delete');
 
-                echo (new ModalCls())->modal('confirm delete');
 
                 if (isset($_POST['delete']))
                 {
-                    $userCls->deleteUser('deleteId');
+                    $userCls->deleteUser($_GET['deleteId']);
                     echo '<meta http-equiv="refresh" content="0; url=user.php" />';
                 }
             }
