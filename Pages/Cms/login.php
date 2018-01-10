@@ -4,6 +4,9 @@ require_once "../../Includes/init.php";
 ?>
 
 <head>
+    <script>
+    <?php include_once "../../Includes/Js/custom.js"; ?>
+    </script>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -21,6 +24,8 @@ require_once "../../Includes/init.php";
 
     <!-- Custom styles for this template -->
     <link href="../../Includes/Lib/css/sb-admin.css" rel="stylesheet">
+
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
 </head>
 
 
@@ -73,8 +78,11 @@ if(isset($_POST['login']))
     $login = new loginCls($user, $_POST['userPassword']);
     $login = $login->login();
 }
+
+
 ?>
-
-
+<script type="text/javascript">
+    removeError();
+</script>
 
 

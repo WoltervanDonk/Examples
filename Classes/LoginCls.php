@@ -15,6 +15,7 @@ class LoginCls extends DBconn
 
     public function login()
     {
+        $ErrorCls = new errorCls();
         if ($this->getStmt()->rowCount() == 1) {
             while ($row = $this->getStmt()->fetch(PDO::FETCH_NAMED)) {
                     $_SESSION['userId'] = $row['userId'];
@@ -43,7 +44,7 @@ class LoginCls extends DBconn
         }
         else
             {
-            echo "error geen account met gegevens";
+                echo $ErrorCls->bootstrapAlert('danger', 'title', 'ur a maggot');
         }
 
         return true;
